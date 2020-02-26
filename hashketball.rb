@@ -294,22 +294,70 @@ end
 
 
 def winning_team
-home_sum = 0
-home_counter = 0
-while home_counter < game_hash[:home][:players].length do
-  home_sum +=  game_hash[:home][:players][home_counter][:points]
-  home_counter += 1
+  home_sum = 0
+  home_counter = 0
+  while home_counter < game_hash[:home][:players].length do
+    home_sum +=  game_hash[:home][:players][home_counter][:points]
+    home_counter += 1
+  end
+
+  away_sum = 0
+  away_counter = 0
+  while away_counter < game_hash[:away][:players].length do
+     away_sum += game_hash[:away][:players][away_counter][:points]
+     away_counter += 1
+  end
+  both_teams_points_array = []
+  both_teams_points_array << home_sum
+  both_teams_points_array << away_sum
+  result = both_teams_points_array.max
+
+  if result == home_sum
+    winner = game_hash[:home][:team_name]
+  else
+    winner = game_hash[:away][:team_name]
+  end
 end
 
-away_sum = 0
-away_counter = 0
-while away_counter < game_hash[:away][:players].length do
-   away_sum += game_hash[:away][:players][away_counter][:points]
-   away_counter += 1
-end
-both_teams_points_array = []
-both_teams_points_array << home_sum
-both_teams_points_array << away_sum
-result = both_teams_points_array.max
+def player_with_longest_name
+  all_names = []
+  home_counter = 0
+  while home_counter < game_hash[:home][:players].length do
+    all_names <<  game_hash[:home][:players][home_counter][:player_name]
+    home_counter += 1
+  end
 
+  away_counter = 0
+  while away_counter < game_hash[:away][:players].length do
+    all_names << game_hash[:away][:players][away_counter][:player_name]
+     away_counter += 1
+  end
+
+  all_names.max_by(&:length) #// This will select the longest string in the array
+end
+
+def long_name_steals_a_ton?
+  all_steals = []
+  home_counter = 0
+  home_players = game_hash[:home][:players]
+  while home_counter < home_players.length do
+    all_steals <<  game_hash[:home][:players][home_counter][:steals]
+    home_counter += 1
+  end
+
+  away_counter = 0
+  away_players = game_hash[:away][:players]
+  while away_counter < away_players.length do
+    all_steals << away_players[away_counter][:steals]
+     away_counter += 1
+  end
+  max_steal = all_steals.max
+
+  away_steals_counter = 0
+  while away_steals_counter < away_players.length do
+    if max_steal == away_players[away_steals_counter][:steals]
+     return true
+    end
+    away_steals_counter += 1
+  end
 end
