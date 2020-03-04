@@ -168,7 +168,6 @@ def player_numbers(team_name)
 end
 
 def player_stats(player_name)
-  #MUST BE A BETTER WAY TO DO THIS
   statsHash = {}
   game_hash.each do |location, team|
     team.each do |attribute, data|
@@ -189,24 +188,84 @@ def player_stats(player_name)
 end
 
 def big_shoe_rebounds
-  #ALSO HAS TO BE A BETTER WAY HERE
   largest_shoe = 0
+  largest_shoe_rebounds = 0
   game_hash.each do |location, team|
     team.each do |attribute, data|
       if attribute == :players
         data.each do |data_item|
           if data_item[:shoe] > largest_shoe
             largest_shoe = data_item[:shoe]
-          end
-        end
-        data.each do |data|
-          if data[:shoe] == largest_shoe
-            return data[:rebounds]
+            largest_shoe_rebounds = data_item[:rebounds]
           end
         end
       end
     end
   end
+  return largest_shoe_rebounds
 end
+
+def most_points_scored
+  most_points = 0
+  player_with_most = ""
+  game_hash.each do |location, team|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |data_item|
+          if data_item[:points] > most_points
+            most_points = data_item[:points]
+            player_with_most = data_item[:player_name]
+          end
+        end
+      end
+    end
+  end
+  return player_with_most
+end
+
+def winning_team
+  #REDUCEEEEE
+  scoreArr = []
+  game_hash.each do |location, team|
+    team.each do |attribute, data|
+      score = 0
+      if attribute == :players
+        data.each do |data_item|
+          data_item.each do |k, v|
+            if k == :points
+              score += data_item[k]
+            end
+          end
+        end
+        scoreArr << score
+      end
+    end
+  end
+  if scoreArr[0] > scoreArr [1]
+    return "Brooklyn Nets"
+  else
+    return "Charlotte Hornets"
+  end
+end
+
+def player_with_longest_name
+  longest_name_length = 0
+  player = ""
+  game_hash.each do |location, team|
+    team.each do |attribute, data|
+      if attribute == :players
+        data.each do |data_item|
+          if longest_name_length < data_item[:player_name].split("").length
+          nameArr = data_item[:player_name].split("")
+          longest_name_length = nameArr.length
+          player = data_item[:player_name]
+        end
+        end
+      end
+    end
+  end
+  return player
+end
+
 
 pp game_hash

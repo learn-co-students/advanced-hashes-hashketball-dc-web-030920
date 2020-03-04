@@ -248,8 +248,6 @@ end
 
 # If you'd like to work on the bonus, uncomment these tests.
 
-=begin
-
 describe 'bonus' do
 
   describe '#most_points_scored' do
@@ -278,6 +276,7 @@ describe 'bonus' do
 
 end
 
+=begin
 describe 'super bonus' do
 
   describe '#long_name_steals_a_ton?' do
