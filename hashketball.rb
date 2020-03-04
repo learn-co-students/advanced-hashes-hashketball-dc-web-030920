@@ -169,7 +169,7 @@ end
 
 def player_stats(player_name)
   #MUST BE A BETTER WAY TO DO THIS
-  newHash = {}
+  statsHash = {}
   game_hash.each do |location, team|
     team.each do |attribute, data|
       if attribute == :players
@@ -177,7 +177,7 @@ def player_stats(player_name)
           if data_item[:player_name] == player_name
             data_item.each do |k,v|
               unless k == :player_name
-                newHash[k] = v
+                statsHash[k] = v
               end
             end
           end
@@ -185,7 +185,7 @@ def player_stats(player_name)
       end
     end
   end
-  return newHash
+  return statsHash
 end
 
 def big_shoe_rebounds
