@@ -267,5 +267,8 @@ def player_with_longest_name
   return player
 end
 
+def long_name_steals_a_ton?
+  puts player_with_longest_name
 
+end
 pp game_hash

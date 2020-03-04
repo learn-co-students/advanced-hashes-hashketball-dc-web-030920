@@ -276,7 +276,6 @@ describe 'bonus' do
 
 end
 
-=begin
 describe 'super bonus' do
 
   describe '#long_name_steals_a_ton?' do
@@ -288,4 +287,3 @@ describe 'super bonus' do
   end
 
 end
-=end
